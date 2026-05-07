@@ -1,0 +1,8 @@
+.box {
+  width: 42rem;
+  max-width: 42rem;
+  background-color: var(--background-color-500);
+  border-radius: 0.9rem;
+  overflow: auto;
+  position: relative;
+}

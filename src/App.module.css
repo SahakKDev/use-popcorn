@@ -1,0 +1,13 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  height: 95vh;
+}
+
+.main {
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  gap: 1.2rem;
+  margin-top: 1.2rem;
+}

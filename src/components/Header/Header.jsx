@@ -1,6 +1,6 @@
 import styles from './Header.module.css';
-import popcornIcon from '../assets/popcurn.png';
-import Search from './Search';
+import popcornIcon from '../../assets/popcurn.png';
+import Search from '../Search/Search';
 
 export default function Header({ resultsCount = 0 }) {
   return (
