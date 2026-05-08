@@ -5,6 +5,7 @@ import styles from './App.module.css';
 import { useState } from 'react';
 import useFetch from './hooks/useFetch';
 import MoviesList from './components/MoviesList/MoviesList';
+// import StarRate from './components/utils/Star/StarRate';
 
 const dummy_movies = [
   {
@@ -65,6 +66,8 @@ export default function App() {
         </MoviesBox>
         <MoviesBox />
       </main>
+
+      {/* <StarRate size={50} color='#FFD700' quantity={5} /> */}
     </div>
   );
 }
