@@ -1,11 +1,13 @@
+import { useState } from 'react';
+import styles from './App.module.css';
+import useFetch from './hooks/useFetch';
+import { API_KEY } from './constants';
+
 import Header from './components/Header/Header';
 import MoviesBox from './components/MoviesBox';
-
-import styles from './App.module.css';
-import { useState } from 'react';
-import useFetch from './hooks/useFetch';
 import MoviesList from './components/MoviesList/MoviesList';
-// import StarRate from './components/utils/Star/StarRate';
+import MovieDetails from './components/MovieDetails/MovieDetails';
+import MoviesSummary from './components/MoviesSummary/MoviesSummary';
 
 const dummy_movies = [
   {
@@ -53,18 +55,47 @@ export default function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const { movies, loading, error } = useFetch(searchTerm);
 
+  const [selectedMovie, setSelectedMovie] = useState(null);
+  const [selectedMovieError, setSelectedMovieError] = useState(null);
+  const [selectedMovieLoading, setSelectedMovieLoading] = useState(false);
+
   function updateSearchTerm(movies) {
     setSearchTerm(movies);
+  }
+
+  async function handleSelectMovie(id) {
+    if (id === selectedMovie?.imdbID) {
+      setSelectedMovie(null);
+      return;
+    }
+    setSelectedMovieLoading(true);
+    setSelectedMovieError(null);
+    try {
+      const response = await fetch(
+        `https://www.omdbapi.com/?apikey=${API_KEY}&i=${id}`,
+      );
+
+      const movie = await response.json();
+
+      setSelectedMovie(movie);
+    } catch (err) {
+      setSelectedMovieError(err);
+    } finally {
+      setSelectedMovieLoading(false);
+    }
   }
 
   return (
     <div className={styles.root}>
       <Header onSearch={updateSearchTerm} resultsCount={movies.length} />
       <main className={styles.main}>
-        <MoviesBox>
-          <MoviesList movies={movies} error={error} loading={loading} />
+        <MoviesBox error={error} loading={loading}>
+          <MoviesList movies={movies} onSelect={handleSelectMovie} />
         </MoviesBox>
-        <MoviesBox />
+        <MoviesBox error={selectedMovieError} loading={selectedMovieLoading}>
+          {selectedMovie && <MovieDetails movie={selectedMovie} />}
+          {!selectedMovie && <MoviesSummary />}
+        </MoviesBox>
       </main>
 
       {/* <StarRate size={50} color='#FFD700' quantity={5} /> */}

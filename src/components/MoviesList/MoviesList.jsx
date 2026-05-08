@@ -1,20 +1,12 @@
-import styles from './MoviesList.module.css';
-
 import MovieItem from './MovieItem';
 
-export default function MoviesList({ movies, error, loading }) {
-  if (error) {
-    return <div className={styles.info}>⛔ Movies not found</div>;
-  }
-
-  if (loading) {
-    return <div className={styles.info}>⌛ Loading...</div>;
-  }
-
+export default function MoviesList({ movies, onSelect }) {
   return (
-    <ul className={styles.movies}>
+    <ul>
       {movies.map((movie) => {
-        return <MovieItem key={movie.imdbID} movie={movie} />;
+        return (
+          <MovieItem key={movie.imdbID} movie={movie} onClick={onSelect} />
+        );
       })}
     </ul>
   );

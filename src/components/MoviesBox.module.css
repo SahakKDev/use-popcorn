@@ -6,3 +6,9 @@
   overflow: auto;
   position: relative;
 }
+
+.info {
+  text-align: center;
+  padding-top: 10rem;
+  font-size: 2.5rem;
+}
