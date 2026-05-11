@@ -2,7 +2,12 @@ import { useState } from 'react';
 import Star from './Star';
 import styles from './Star.module.css';
 
-export default function StarRate({ size, color, quantity = 10 }) {
+export default function StarRate({
+  size,
+  color,
+  quantity = 10,
+  onClick = () => {},
+}) {
   const [hoveredStar, setHoveredStar] = useState(null);
   const [selectedStar, setSelectedStar] = useState(null);
 
@@ -12,6 +17,8 @@ export default function StarRate({ size, color, quantity = 10 }) {
 
   function handleUpdateRating(order) {
     setSelectedStar(order);
+
+    onClick?.(order)
   }
 
   return (
@@ -32,7 +39,10 @@ export default function StarRate({ size, color, quantity = 10 }) {
         />
       ))}
 
-      <span style={{ color: '#FFD700', width: '2.3rem' }} className={styles.label}>
+      <span
+        style={{ color: '#FFD700', width: '2.1rem' }}
+        className={styles.label}
+      >
         {selectedStar && !hoveredStar ? selectedStar : hoveredStar}
       </span>
     </div>

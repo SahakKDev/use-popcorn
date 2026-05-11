@@ -68,7 +68,7 @@
 
 .description::first-letter {
   font-size: 3rem;
-  color: #FFD700;
+  color: var(--secondary-color);
 }
 
 .backBtn {
@@ -82,4 +82,17 @@
   border: none;
   cursor: pointer;
   font-size: 2rem;
+}
+
+.addBtn {
+  margin-top: 1.5rem;
+  width: 100%;
+  padding: 1rem;
+  background-color: var(--primary-color);
+  border: none;
+  outline: none;
+  color: #ccc;
+  font-size: 1.8rem;
+  border-radius: 50px;
+  cursor: pointer;
 }
