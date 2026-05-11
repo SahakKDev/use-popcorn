@@ -19,6 +19,11 @@ export default function App() {
 
   const [ratedMovies, setRatedMovies] = useState([]);
 
+  const [show, setShow] = useState({
+    moviesList: true,
+    moviesSummary: true,
+  });
+
   function updateSearchTerm(movies) {
     setSearchTerm(movies);
   }
@@ -57,6 +62,8 @@ export default function App() {
         UserRate: rate,
       },
     ]);
+
+    setSelectedMovie(false)
   }
 
   return (
@@ -64,17 +71,39 @@ export default function App() {
       <Header onSearch={updateSearchTerm} resultsCount={movies.length} />
       <main className={styles.main}>
         <MoviesBox error={error} loading={loading}>
-          <MoviesList movies={movies} onSelect={handleSelectMovie} />
+          <button
+            onClick={() =>
+              setShow((p) => ({ ...p, moviesList: !p.moviesList }))
+            }
+            className={styles.toggleBtn}
+          >
+            {show.moviesList ? '-' : '+'}
+          </button>
+          {show.moviesList && (
+            <MoviesList movies={movies} onSelect={handleSelectMovie} />
+          )}
         </MoviesBox>
         <MoviesBox error={selectedMovieError} loading={selectedMovieLoading}>
-          {selectedMovie && (
-            <MovieDetails
-              movie={selectedMovie}
-              onClose={handleCloseSelectedMovie}
-              onAdd={handleAddToList}
-            />
+          <button
+            onClick={() =>
+              setShow((p) => ({ ...p, moviesSummary: !p.moviesSummary }))
+            }
+            className={styles.toggleBtn}
+          >
+            {show.moviesSummary ? '-' : '+'}
+          </button>
+          {show.moviesSummary && (
+            <>
+              {selectedMovie && (
+                <MovieDetails
+                  movie={selectedMovie}
+                  onClose={handleCloseSelectedMovie}
+                  onAdd={handleAddToList}
+                />
+              )}
+              {!selectedMovie && <MoviesSummary movies={ratedMovies} />}
+            </>
           )}
-          {!selectedMovie && <MoviesSummary movies={ratedMovies} />}
         </MoviesBox>
       </main>
     </div>
