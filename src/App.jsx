@@ -85,6 +85,10 @@ export default function App() {
     }
   }
 
+  function handleCloseSelectedMovie() {
+    setSelectedMovie(null);
+  }
+
   return (
     <div className={styles.root}>
       <Header onSearch={updateSearchTerm} resultsCount={movies.length} />
@@ -93,12 +97,17 @@ export default function App() {
           <MoviesList movies={movies} onSelect={handleSelectMovie} />
         </MoviesBox>
         <MoviesBox error={selectedMovieError} loading={selectedMovieLoading}>
-          {selectedMovie && <MovieDetails movie={selectedMovie} />}
+          {selectedMovie && (
+            <MovieDetails
+              movie={selectedMovie}
+              onClose={handleCloseSelectedMovie}
+            />
+          )}
           {!selectedMovie && <MoviesSummary />}
         </MoviesBox>
       </main>
 
-      {/* <StarRate size={50} color='#FFD700' quantity={5} /> */}
+      
     </div>
   );
 }

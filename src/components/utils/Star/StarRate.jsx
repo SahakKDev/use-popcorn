@@ -32,7 +32,7 @@ export default function StarRate({ size, color, quantity = 10 }) {
         />
       ))}
 
-      <span style={{ color: '#FFD700' }} className={styles.label}>
+      <span style={{ color: '#FFD700', width: '2.3rem' }} className={styles.label}>
         {selectedStar && !hoveredStar ? selectedStar : hoveredStar}
       </span>
     </div>

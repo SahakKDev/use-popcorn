@@ -1,6 +1,13 @@
 import styles from './Star.module.css';
 
-export default function Star({ size, color, order, onHover, onClick, fill }) {
+export default function Star({
+  size,
+  color,
+  order,
+  onHover = () => {},
+  onClick = () => {},
+  fill,
+}) {
   function handleClick() {
     onClick(order);
   }
@@ -22,7 +29,7 @@ export default function Star({ size, color, order, onHover, onClick, fill }) {
       fill={fillColor}
       stroke={color}
       viewBox='0 0 24 24'
-      stroke-width='1.5'
+      strokeWidth='1.5'
       style={{
         width: size,
       }}
